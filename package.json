@@ -1,0 +1,50 @@
+{
+  "name": "pointer",
+  "displayName": "Pointer",
+  "description": "A VS Code extension that reads chat output and modifies files accordingly.",
+  "version": "0.0.1",
+  "publisher": "rishijeet",
+  "author": "Rishijeet Mishra",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rishijeet/pointer.git"
+  },
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:pointer.processChat"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "pointer.processChat",
+        "title": "Process Chat Output"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.80.0",
+    "@types/node": "^18.0.0",
+    "@types/mocha": "^10.0.0",
+    "@types/glob": "^8.0.0",
+    "eslint": "^8.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.0.0",
+    "@typescript-eslint/parser": "^5.0.0",
+    "typescript": "^4.0.0",
+    "mocha": "^10.0.0",
+    "glob": "^8.0.0"
+  }
+} 

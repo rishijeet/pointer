@@ -1,0 +1,21 @@
+# Development files
+.vscode/
+node_modules/
+src/
+.gitignore
+*.ts
+!*.d.ts
+tsconfig.json
+.eslintrc.json
+
+# Test files
+test/
+out/test/
+
+# Logs and temporary files
+*.log
+*.tmp
+
+# OS metadata
+.DS_Store
+Thumbs.db 
