@@ -1,4 +1,7 @@
 # Pointer - VS Code Extension
+![CI/CD Build](https://github.com/rishijeet/pointer/actions/workflows/build.yml/badge.svg)](https://github.com/rishijeet/pointer/actions/workflows/build.yml)
+[![Release Status](https://github.com/rishijeet/pointer/actions/workflows/release.yml/badge.svg)](https://github.com/rishijeet/pointer/actions/workflows/release.yml)
+
 
 <img src="https://github.com/user-attachments/assets/f54ad383-4b52-46a2-a3f8-8976bbb1fdcd" width="20%">
 
@@ -10,6 +13,24 @@ A powerful VS Code extension that transforms chat output into file operations. C
 - **Simple Syntax**: Easy-to-use command format
 - **Workspace Integration**: Seamlessly modifies files in your current workspace
 - **Automatic File Opening**: Created/modified files automatically open in editor
+
+## CI/CD Status
+
+This project uses GitHub Actions for continuous integration and deployment:
+
+### Workflows
+
+1. **Build & Test** - Runs on every push to `main` and pull requests:
+   - Lints TypeScript code
+   - Runs unit tests
+   - Compiles the extension
+   - [View workflow](.github/workflows/build.yml)
+
+2. **Release** - Runs when new releases are created:
+   - Packages the extension as `.vsix`
+   - Attaches the artifact to the release
+   - [View workflow](.github/workflows/release.yml)
+
 
 ## Installation
 

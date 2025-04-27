@@ -58,5 +58,11 @@
     "mocha": "^10.0.0",
     "glob": "^8.0.0",
     "vsce": "^2.15.0"
+  },
+  "rules": {
+    "no-case-declarations": "off",
+    "@typescript-eslint/no-empty-function": ["error", {
+      "allow": ["arrowFunctions", "functions", "methods"]
+    }]
   }
 } 
