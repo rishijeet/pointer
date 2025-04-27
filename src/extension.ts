@@ -127,15 +127,15 @@ async function executeFileOperation(operation: FileOperation): Promise<void> {
 
     try {
         switch (operation.type) {
-            case 'create':
-                // Allow empty content for CREATE operations
+            case 'create': {
                 const content = operation.content || '';
                 await fs.promises.mkdir(path.dirname(fullPath), { recursive: true });
                 await fs.promises.writeFile(fullPath, content);
                 vscode.window.showInformationMessage(`Created: ${operation.filePath}`);
                 break;
+            }
                 
-            case 'modify':
+            case 'modify': {
                 if (!operation.content) {
                     throw new Error('No content provided for file modification');
                 }
@@ -156,8 +156,9 @@ async function executeFileOperation(operation: FileOperation): Promise<void> {
                 const uri = vscode.Uri.file(fullPath);
                 await vscode.commands.executeCommand('vscode.open', uri);
                 break;
+            }
                 
-            case 'delete':
+            case 'delete': {
                 if (!fs.existsSync(fullPath)) {
                     console.warn(`File not found, skipping delete: ${operation.filePath}`);
                     return;
@@ -166,6 +167,7 @@ async function executeFileOperation(operation: FileOperation): Promise<void> {
                 await fs.promises.unlink(fullPath);
                 vscode.window.showInformationMessage(`Deleted: ${operation.filePath}`);
                 break;
+            }
         }
     } catch (error) {
         vscode.window.showErrorMessage(
@@ -175,4 +177,8 @@ async function executeFileOperation(operation: FileOperation): Promise<void> {
     }
 }
 
-export function deactivate() {} 
+/* eslint-disable @typescript-eslint/no-empty-function */
+export function deactivate() {
+    // Add cleanup logic if needed, or keep empty with eslint disable
+}
+/* eslint-enable @typescript-eslint/no-empty-function */ 
