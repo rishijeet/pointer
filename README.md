@@ -1,6 +1,6 @@
 # Pointer - VS Code Extension
 
-![Pointer Logo](https://via.placeholder.com/150) *(placeholder for your logo)*
+![Pointer Logo](![image](https://github.com/user-attachments/assets/0a39c1da-95bb-40f3-a2f7-4364b6089c03))
 
 A powerful VS Code extension that transforms chat output into file operations. Create, modify, or delete files directly from your conversation history.
 
