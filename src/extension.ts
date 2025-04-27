@@ -92,6 +92,7 @@ async function executeFileOperation(operation: FileOperation): Promise<void> {
             if (!operation.content) {
                 throw new Error('No content provided for file creation');
             }
+            await fs.promises.mkdir(path.dirname(fullPath), { recursive: true });
             await fs.promises.writeFile(fullPath, operation.content);
             break;
             
@@ -99,6 +100,7 @@ async function executeFileOperation(operation: FileOperation): Promise<void> {
             if (!operation.content) {
                 throw new Error('No content provided for file modification');
             }
+            await fs.promises.mkdir(path.dirname(fullPath), { recursive: true });
             await fs.promises.writeFile(fullPath, operation.content);
             break;
             
@@ -112,6 +114,12 @@ async function executeFileOperation(operation: FileOperation): Promise<void> {
         const uri = vscode.Uri.file(fullPath);
         const doc = await vscode.workspace.openTextDocument(uri);
         await vscode.window.showTextDocument(doc);
+    }
+
+    const confirm = await vscode.window.showInformationMessage(`File operation completed successfully.`, 'Open File', 'Close');
+    if (confirm === 'Open File') {
+        const uri = vscode.Uri.file(fullPath);
+        await vscode.commands.executeCommand('vscode.openWith', uri);
     }
 }
 
