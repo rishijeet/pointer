@@ -1,16 +1,16 @@
 # Development files
-.vscode/
-node_modules/
-src/
-.gitignore
+.vscode/**
+node_modules/**
+src/**
+.git/**
+.github/**
 *.ts
 !*.d.ts
 tsconfig.json
 .eslintrc.json
 
 # Test files
-test/
-out/test/
+out/test/**
 
 # Logs and temporary files
 *.log
@@ -18,4 +18,8 @@ out/test/
 
 # OS metadata
 .DS_Store
-Thumbs.db 
+Thumbs.db
+
+# Exclude unnecessary files from the extension package
+**/*.map
+**/*.ts 
