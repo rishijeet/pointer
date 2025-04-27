@@ -2,7 +2,7 @@
   "name": "pointer",
   "displayName": "Pointer",
   "description": "A VS Code extension that reads chat output and modifies files accordingly.",
-  "version": "0.0.4",
+  "version": "0.0.7",
   "publisher": "rishijeet",
   "author": "Rishijeet Mishra",
   "repository": {
@@ -16,7 +16,8 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:pointer.processChat"
+    "onCommand:pointer.processChat",
+    "onStartupFinished"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -24,6 +25,11 @@
       {
         "command": "pointer.processChat",
         "title": "Process Chat Output"
+      },
+      {
+        "command": "pointer.restart",
+        "title": "Pointer: Restart Extension",
+        "category": "Pointer"
       }
     ]
   },
