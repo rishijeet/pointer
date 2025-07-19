@@ -16,7 +16,6 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:pointer.processChat",
     "onStartupFinished"
   ],
   "main": "./out/extension.js",
@@ -30,11 +29,6 @@
           "light": "images/pointer-icon-p.png",
           "dark": "images/pointer-icon-p.png"
         }
-      },
-      {
-        "command": "pointer.restart",
-        "title": "Pointer: Restart Extension",
-        "category": "Pointer"
       }
     ]
   },
