@@ -23,8 +23,8 @@
   "contributes": {
     "commands": [
       {
-        "command": "pointer.processChat",
-        "title": "Process Chat Output",
+        "command": "pointer.openChat",
+        "title": "Open Pointer",
         "icon": {
           "light": "images/pointer-icon-p.png",
           "dark": "images/pointer-icon-p.png"
@@ -34,29 +34,36 @@
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
-    "compile": "tsc -p ./",
+    "compile": "tsc -p ./ && (cd src/chat-app && npm run build)",
     "watch": "tsc -watch -p ./",
     "pretest": "npm run compile && npm run lint",
     "lint": "eslint src --ext ts",
     "test": "node ./out/test/runTest.js"
   },
   "devDependencies": {
-    "@types/vscode": "^1.80.0",
-    "@types/node": "^18.0.0",
-    "@types/mocha": "^10.0.0",
     "@types/glob": "^8.0.0",
-    "eslint": "^8.0.0",
+    "@types/mocha": "^10.0.0",
+    "@types/node": "^18.0.0",
+    "@types/vscode": "^1.80.0",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
-    "typescript": "^4.0.0",
-    "mocha": "^10.0.0",
+    "eslint": "^8.0.0",
     "glob": "^8.0.0",
+    "mocha": "^10.0.0",
+    "typescript": "^5.9.2",
     "vsce": "^2.15.0"
   },
   "rules": {
     "no-case-declarations": "off",
-    "@typescript-eslint/no-empty-function": ["error", {
-      "allow": ["arrowFunctions", "functions", "methods"]
-    }]
+    "@typescript-eslint/no-empty-function": [
+      "error",
+      {
+        "allow": [
+          "arrowFunctions",
+          "functions",
+          "methods"
+        ]
+      }
+    ]
   }
-} 
+}
