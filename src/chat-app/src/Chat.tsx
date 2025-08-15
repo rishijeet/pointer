@@ -21,10 +21,11 @@ const MODEL_MAP: Record<string, ModelType> = {
 const MODEL_OPTIONS: string[] = Object.keys(MODEL_MAP);
 
 const Chat = () => {
-  const [messages, setMessages] = useState<{ text: string; sender: 'user' | 'bot' }[]>([]);
+  const [messages, setMessages] = useState<{ text: string; sender: 'user' | 'bot'; isLoading?: boolean }[]>([]);
   const [input, setInput] = useState('');
   const [selectedModel, setSelectedModel] = useState('gemini-2.5-flash');
   const vscodeApiRef = useRef<VsCodeApi | null>(null);
+  const [isNewChat, setIsNewChat] = useState(true);
 
   // On component mount, acquire the VS Code API instance
   useEffect(() => {
@@ -38,7 +39,10 @@ const Chat = () => {
     const handleMessage = (event: MessageEvent) => {
       const message = event.data; // The message from the extension
       if (message.type === 'reply') {
-        setMessages(prev => [...prev, { text: message.text, sender: 'bot' }]);
+        setMessages(prev => {
+          const newMessages = prev.filter(msg => !msg.isLoading);
+          return [...newMessages, { text: message.text, sender: 'bot' }];
+        });
       }
     };
 
@@ -53,17 +57,25 @@ const Chat = () => {
   const handleSend = () => {
     if (input.trim() && vscodeApiRef.current) {
       const userMessage = { text: input, sender: 'user' as const };
-      setMessages([...messages, userMessage]);
+      const loadingMessage = { text: '...', sender: 'bot' as const, isLoading: true };
+      setMessages([...messages, userMessage, loadingMessage]);
 
       // Send the message to the extension
       vscodeApiRef.current.postMessage({
         type: 'chat',
         text: input,
         model: selectedModel,
+        isNewChat: isNewChat
       });
 
       setInput('');
+      setIsNewChat(false);
     }
+  };
+
+  const handleNewChat = () => {
+    setMessages([]);
+    setIsNewChat(true);
   };
 
   return (
@@ -77,7 +89,9 @@ const Chat = () => {
                 borderRadius: '12px',
                 display: 'inline-block',
                 maxWidth: '80%',
-                whiteSpace: 'pre-wrap'
+                whiteSpace: 'pre-wrap',
+                opacity: message.isLoading ? 0.7 : 1,
+                fontStyle: message.isLoading ? 'italic' : 'normal'
             }}>
               <ReactMarkdown
                 components={{
@@ -91,7 +105,7 @@ const Chat = () => {
         ))}
       </div>
       <div style={{ padding: '10px', borderTop: '1px solid var(--vscode-sideBar-border)' }}>
-        <div style={{ marginBottom: '10px' }}>
+        <div style={{ marginBottom: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <select
             value={selectedModel}
             onChange={(e) => setSelectedModel(e.target.value)}
@@ -110,6 +124,19 @@ const Chat = () => {
               </option>
             ))}
           </select>
+          <button
+            onClick={handleNewChat}
+            style={{
+              padding: '6px 12px',
+              backgroundColor: 'var(--vscode-button-secondaryBackground)',
+              color: 'var(--vscode-button-secondaryForeground)',
+              border: 'none',
+              borderRadius: '4px',
+              cursor: 'pointer'
+            }}
+          >
+            New Chat
+          </button>
         </div>
         <div style={{ display: 'flex' }}>
           <input

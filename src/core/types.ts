@@ -6,10 +6,11 @@ export interface ChatMessage {
     type: 'chat' | 'reply';
     text: string;
     model?: ModelType;
+    isNewChat?: boolean;
 }
 
 export interface LLMService {
-    generateResponse(text: string): Promise<string>;
+    generateResponse(text: string, isNewChat?: boolean): Promise<string>;
 }
 
 export interface WebviewPanelConfig {

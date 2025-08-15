@@ -56,7 +56,7 @@ export class ChatPanel {
                             message.model as ModelType,
                             ChatPanel.outputChannel
                         );
-                        const response = await service.generateResponse(message.text);
+                        const response = await service.generateResponse(message.text, message.isNewChat);
                         this.panel.webview.postMessage({ 
                             type: "reply", 
                             text: response 
