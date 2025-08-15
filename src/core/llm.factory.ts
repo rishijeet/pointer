@@ -10,8 +10,11 @@ export class LLMServiceFactory {
     static getService(model: ModelType, outputChannel: vscode.OutputChannel): LLMService {
         if (!this.services.has(model)) {
             switch (model) {
-                case 'gemini-pro':
-                    this.services.set(model, new GeminiService(outputChannel));
+                case 'gemini-2.5-pro':
+                    this.services.set(model, new GeminiService(model, outputChannel));
+                    break;
+                case 'gemini-2.5-flash':
+                    this.services.set(model, new GeminiService(model, outputChannel));
                     break;
                 case 'gpt-3.5-turbo':
                 case 'gpt-4':

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ReactMarkdown from 'react-markdown';
+import { ModelType } from '../../core/types';
 
 // It's a good practice to declare the type for the VS Code API
 interface VsCodeApi {
@@ -9,10 +10,20 @@ interface VsCodeApi {
 // This special function is provided by VS Code in the webview environment
 declare function acquireVsCodeApi(): VsCodeApi;
 
+const MODEL_MAP: Record<string, ModelType> = {
+  'GPT-3.5': 'gpt-3.5-turbo',
+  'GPT-4': 'gpt-4',
+  'Claude 2': 'claude-2',
+  'Gemini 2.5 Pro': 'gemini-2.5-pro',
+  'Gemini 2.5 Flash': 'gemini-2.5-flash'
+};
+
+const MODEL_OPTIONS: string[] = Object.keys(MODEL_MAP);
+
 const Chat = () => {
   const [messages, setMessages] = useState<{ text: string; sender: 'user' | 'bot' }[]>([]);
   const [input, setInput] = useState('');
-  const [selectedModel, setSelectedModel] = useState('gemini-pro');
+  const [selectedModel, setSelectedModel] = useState('gemini-2.5-flash');
   const vscodeApiRef = useRef<VsCodeApi | null>(null);
 
   // On component mount, acquire the VS Code API instance
@@ -93,10 +104,11 @@ const Chat = () => {
               width: '200px'
             }}
           >
-            <option value="gpt-3.5-turbo">GPT-3.5 Turbo</option>
-            <option value="gpt-4">GPT-4</option>
-            <option value="claude-2">Claude 2</option>
-            <option value="gemini-pro">Gemini Pro</option>
+            {MODEL_OPTIONS.map((model) => (
+              <option key={MODEL_MAP[model]} value={MODEL_MAP[model]}>
+              {model}
+              </option>
+            ))}
           </select>
         </div>
         <div style={{ display: 'flex' }}>

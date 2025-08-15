@@ -1,12 +1,14 @@
 import * as vscode from 'vscode';
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { LLMService } from './types';
+import { LLMService, ModelType } from './types';
 
 export class GeminiService implements LLMService {
     private readonly outputChannel: vscode.OutputChannel;
+    private readonly selectedModel: ModelType;
 
-    constructor(outputChannel: vscode.OutputChannel) {
+    constructor(model: ModelType, outputChannel: vscode.OutputChannel) {
         this.outputChannel = outputChannel;
+        this.selectedModel = model;
     }
 
     async generateResponse(text: string): Promise<string> {
@@ -21,7 +23,7 @@ export class GeminiService implements LLMService {
             
             // Initialize the Gemini AI instance
             const genAI = new GoogleGenerativeAI(apiKey as string);
-            const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+            const model = genAI.getGenerativeModel({ model: this.selectedModel });
             
             this.outputChannel.appendLine(`[${new Date().toISOString()}] Sending request to Gemini API`);
             this.outputChannel.appendLine(`Request payload length: ${text.length} characters`);
