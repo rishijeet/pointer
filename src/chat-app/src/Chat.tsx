@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import ReactMarkdown from 'react-markdown';
 
 // It's a good practice to declare the type for the VS Code API
 interface VsCodeApi {
@@ -11,6 +12,7 @@ declare function acquireVsCodeApi(): VsCodeApi;
 const Chat = () => {
   const [messages, setMessages] = useState<{ text: string; sender: 'user' | 'bot' }[]>([]);
   const [input, setInput] = useState('');
+  const [selectedModel, setSelectedModel] = useState('gemini-pro');
   const vscodeApiRef = useRef<VsCodeApi | null>(null);
 
   // On component mount, acquire the VS Code API instance
@@ -46,6 +48,7 @@ const Chat = () => {
       vscodeApiRef.current.postMessage({
         type: 'chat',
         text: input,
+        model: selectedModel,
       });
 
       setInput('');
@@ -57,20 +60,47 @@ const Chat = () => {
       <div style={{ flex: 1, overflowY: 'auto', padding: '10px' }}>
         {messages.map((message, index) => (
           <div key={index} style={{ textAlign: message.sender === 'user' ? 'right' : 'left', marginBottom: '10px' }}>
-            <span style={{ 
+            <div style={{ 
                 background: message.sender === 'user' ? 'var(--vscode-list-activeSelectionBackground)' : 'var(--vscode-list-inactiveSelectionBackground)', 
                 padding: '8px 12px', 
                 borderRadius: '12px',
                 display: 'inline-block',
-                maxWidth: '80%'
+                maxWidth: '80%',
+                whiteSpace: 'pre-wrap'
             }}>
-              {message.text}
-            </span>
+              <ReactMarkdown
+                components={{
+                  p: ({node, ...props}) => <p className="markdown-content" {...props} />
+                }}
+              >
+                {message.text}
+              </ReactMarkdown>
+            </div>
           </div>
         ))}
       </div>
-      <div style={{ display: 'flex', padding: '10px', borderTop: '1px solid var(--vscode-sideBar-border)' }}>
-        <input
+      <div style={{ padding: '10px', borderTop: '1px solid var(--vscode-sideBar-border)' }}>
+        <div style={{ marginBottom: '10px' }}>
+          <select
+            value={selectedModel}
+            onChange={(e) => setSelectedModel(e.target.value)}
+            style={{
+              padding: '6px',
+              backgroundColor: 'var(--vscode-dropdown-background)',
+              color: 'var(--vscode-dropdown-foreground)',
+              border: '1px solid var(--vscode-dropdown-border)',
+              borderRadius: '4px',
+              width: '200px'
+            }}
+          >
+            <option value="gpt-3.5-turbo">GPT-3.5 Turbo</option>
+            <option value="gpt-4">GPT-4</option>
+            <option value="claude-2">Claude 2</option>
+            <option value="gemini-pro">Gemini Pro</option>
+          </select>
+        </div>
+        <div style={{ display: 'flex' }}>
+          <input
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
@@ -94,6 +124,7 @@ const Chat = () => {
             borderRadius: '4px',
             cursor: 'pointer'
         }}>Send</button>
+      </div>
       </div>
     </div>
   );

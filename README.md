@@ -6,17 +6,57 @@ A powerful VS Code extension that transforms chat output into file operations. C
 
 ## Features
 
+- **Multi-Model Support**: Choose from multiple AI models (Gemini, GPT, Claude)
 - **File Operations from Chat**: Convert chat messages into file operations
 - **Simple Syntax**: Easy-to-use command format
 - **Workspace Integration**: Seamlessly modifies files in your current workspace
 - **Automatic File Opening**: Created/modified files automatically open in editor
+
+## Setup and Configuration
+
+### Installation
+
+1. Install the extension from the VS Code marketplace
+2. Open VS Code
+3. Press `Ctrl+Shift+P` (Windows/Linux) or `Cmd+Shift+P` (macOS)
+4. Type "Open Pointer" to start using the extension
+
+### API Key Configuration
+
+The extension supports multiple AI models. Here's how to configure each:
+
+#### Google Gemini
+1. Get your API key from [Google AI Studio](https://makersuite.google.com/app/apikey)
+2. Open VS Code Settings (`Ctrl+,` or `Cmd+,`)
+3. Search for "Pointer"
+4. Enter your Gemini API key in the "Pointer: Gemini Api Key" setting
+
+#### OpenAI (GPT-3.5/GPT-4)
+1. Get your API key from [OpenAI Platform](https://platform.openai.com/api-keys)
+2. Open VS Code Settings
+3. Enter your OpenAI API key in the "Pointer: OpenAI Api Key" setting
+
+#### Anthropic Claude
+1. Get your API key from [Anthropic Console](https://console.anthropic.com/)
+2. Open VS Code Settings
+3. Enter your Claude API key in the "Pointer: Anthropic Api Key" setting
+
+### Usage
+
+1. Open the Pointer chat interface using the command palette (`Ctrl+Shift+P` or `Cmd+Shift+P`) and type "Open Pointer"
+2. Select your preferred AI model from the dropdown
+3. Start chatting!
 
 ## CI/CD Status
 
 ![CI/CD Build](https://github.com/rishijeet/pointer/actions/workflows/build.yml/badge.svg)
 [![Release Status](https://github.com/rishijeet/pointer/actions/workflows/release.yml/badge.svg)](https://github.com/rishijeet/pointer/actions/workflows/release.yml)
 
-This project uses GitHub Actions for continuous integration and deployment:
+This project uses GitHub Actions for continuous integration and deployment.
+
+## Security Note
+
+⚠️ **Important**: Your API keys are stored securely in VS Code's settings and are only used for communicating with the respective AI services. Never share your API keys or commit them to version control.
 
 ### Workflows
 
@@ -135,4 +175,4 @@ vsce package
 
 ## License
 
-© Rishijeet Mishra 
+© Rishijeet Mishra, Prathamesh Bonde

@@ -1,7 +1,8 @@
 import * as vscode from "vscode";
-import { ChatPanel } from "./ChatPanel";
+import { ChatPanel } from './core/ChatPanel';
 
 export function activate(context: vscode.ExtensionContext) {
+  console.log('Activating Pointer extension');
   const openChat = vscode.commands.registerCommand(
     "pointer.openChat",
     () => {
@@ -11,3 +12,5 @@ export function activate(context: vscode.ExtensionContext) {
 
   context.subscriptions.push(openChat);
 }
+
+

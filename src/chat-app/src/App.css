@@ -2,6 +2,38 @@
   text-align: center;
 }
 
+/* Markdown styles */
+.markdown-content {
+  text-align: left;
+}
+
+.markdown-content p {
+  margin: 8px 0;
+}
+
+.markdown-content strong {
+  color: var(--vscode-editor-foreground);
+  font-weight: 600;
+}
+
+.markdown-content ul, 
+.markdown-content ol {
+  margin: 8px 0;
+  padding-left: 20px;
+}
+
+.markdown-content li {
+  margin: 4px 0;
+}
+
+.markdown-content h1,
+.markdown-content h2,
+.markdown-content h3,
+.markdown-content h4 {
+  margin: 16px 0 8px;
+  color: var(--vscode-editor-foreground);
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;

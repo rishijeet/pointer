@@ -30,7 +30,27 @@
           "dark": "images/pointer-icon-p.png"
         }
       }
-    ]
+    ],
+    "configuration": {
+      "title": "Pointer",
+      "properties": {
+        "pointer.openaiApiKey": {
+          "type": "string",
+          "default": "",
+          "description": "API key for OpenAI (required for GPT-3.5 and GPT-4)"
+        },
+        "pointer.anthropicApiKey": {
+          "type": "string",
+          "default": "",
+          "description": "API key for Anthropic (required for Claude)"
+        },
+        "pointer.geminiApiKey": {
+          "type": "string",
+          "default": "",
+          "description": "API key for Google Gemini"
+        }
+      }
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
@@ -65,5 +85,8 @@
         ]
       }
     ]
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.24.1"
   }
 }
